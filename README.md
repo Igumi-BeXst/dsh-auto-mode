@@ -65,7 +65,7 @@ claim requests first.
 
 Auto Mode grants every request, including destructive ones. The runtime
 context warns the model to use extra care with irreversible or costly
-operations. Toggle it off with `/auto` at any time.
+operations. Click the chip to turn it off at any time.
 
 ## Known limitations
 
