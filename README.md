@@ -1,6 +1,6 @@
 # dsh-auto-mode
 
-Claude Code-style **Auto Mode** for DeepSeek Harness: when enabled, every
+**Auto Mode** for DeepSeek Harness: when enabled, every
 approval prompt is auto-accepted — operations that require approval
 (workspace-escape file writes, wider shell commands, sandbox escalations) run
 immediately without asking you.
