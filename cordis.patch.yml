@@ -1,0 +1,7 @@
+# dsh-auto-mode bundle patch: mounts the Auto Mode plugin on the host plane.
+# The profile keeps this bundle FIRST in dsh.profile.bundles so this row
+# precedes the web UI answerer and its approval listener claims requests
+# before the browser prompt.
+- insert:
+    - id: auto-mode
+      name: dsh-auto-mode
