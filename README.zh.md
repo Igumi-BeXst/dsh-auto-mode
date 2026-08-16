@@ -1,6 +1,6 @@
 # dsh-auto-mode
 
-DeepSeek Harness 的 **Auto Mode** 插件(仿 Claude Code 的自动接受模式):开启后所有授权提示自动放行——需要授权的操作(工作区外写入、更宽的 shell 命令、沙箱升级等)立即执行,不再弹窗询问。输入框正上方有常驻状态芯片,实时显示当前模式。
+DeepSeek Harness 的 **Auto Mode** 插件:开启后所有授权提示自动放行——需要授权的操作(工作区外写入、更宽的 shell 命令、沙箱升级等)立即执行,不再弹窗询问。输入框正上方有常驻状态芯片,实时显示当前模式。
 
 [English](README.md) | [中文](README.zh.md)
 
