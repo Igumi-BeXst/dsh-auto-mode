@@ -6,15 +6,44 @@
 **Auto Mode** for DeepSeek Harness: when enabled, every
 approval prompt is auto-accepted — operations that require approval
 (workspace-escape file writes, wider shell commands, sandbox escalations) run
-immediately without asking you.
+immediately without asking you. A persistent status chip above the composer
+shows the current mode and updates live.
+
+[English](README.md) | [中文](README.zh.md)
+
+## Installation
+
+One command (no build step — the plugin ships plain ESM):
+
+```sh
+dsh plugin --profile web add github:Igumi-BeXst/dsh-auto-mode
+```
+
+Then:
+
+1. **Move the bundle to the front of the list** — edit
+   `~/.dsh/profiles/web/package.json` and put `"dsh-auto-mode"` first in
+   `dsh.profile.bundles` (the `add` command appends it last). This ordering
+   is what makes the approval listener register before the web UI answerer;
+   without it, auto-grant does not work.
+2. Restart `dsh web` and hard-refresh the page (Ctrl+Shift+R). The chip
+   appears above the composer, aligned with the input card.
+3. Type `/auto` to toggle. The switch is durable and survives restarts.
+
+Manual/local install: clone the repo, then
+`dsh plugin --profile web add <path-to-clone>` — same two follow-up steps.
+
+Requirements: a `web` profile with the standard bundles (`@deepseek-ai/dsh-base`,
+`@deepseek-ai/dsh-web-app`), which provide the approval, settings, commands,
+and webServer services the plugin uses.
 
 ## Usage
 
 - `/auto` — toggle Auto Mode for all sessions. The switch is durable
   (`auto-mode` settings namespace) and survives restarts.
-- The model is told the current mode through its runtime context
-  (`auto-mode:state`) and every switch is narrated into the session
-  transcript.
+- The status chip above the composer polls `/api/auto-mode/state` every 3
+  seconds (plus window-focus refresh), so it reflects the mode within
+  seconds of any toggle.
 - Config default: `dsh-auto-mode.enabled` (default `false`).
 
 ## How it works
@@ -48,3 +77,7 @@ operations. Toggle it off with `/auto` at any time.
   router-standard preset do this by design). The model still learns every
   switch from the injected "Auto Mode is now ON/OFF (changed by the user)."
   transcript message, which no plugin clears.
+
+## License
+
+MIT © Igumi-BeXst
