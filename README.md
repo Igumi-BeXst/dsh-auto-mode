@@ -61,11 +61,20 @@ The profile keeps this bundle **first** in `dsh.profile.bundles` so the row
 precedes the UI answerer row; without that ordering the browser prompt would
 claim requests first.
 
+**Safety invariant**: sandbox escalations to `danger-full-access` are never
+auto-granted. Even while Auto Mode is on, those requests fall through to the
+interactive answerer, so the browser always asks you before any full-access
+upgrade. The model-facing prompt states the same rule: it must not request
+such an escalation on its own — it states the need and waits for your
+approval.
+
 ## Safety
 
 Auto Mode grants every request, including destructive ones. The runtime
 context warns the model to use extra care with irreversible or costly
-operations. Click the chip to turn it off at any time.
+operations, and `danger-full-access` escalations always require your explicit
+approval — Auto Mode never bypasses that prompt. Click the chip to turn the
+mode off at any time.
 
 ## Known limitations
 
