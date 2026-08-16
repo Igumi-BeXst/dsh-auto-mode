@@ -19,16 +19,17 @@ dsh plugin --profile web add github:Igumi-BeXst/dsh-auto-mode
    这个顺序保证审批监听器先于 web UI 应答器注册;顺序不对时自动放行不生效。
 2. 重启 `dsh web` 并**强制刷新页面**(Ctrl+Shift+R)。芯片会出现在输入框正上方,
    与输入卡片水平对齐。
-3. 输入 `/auto` 切换。开关持久化,重启不丢。
+3. **点击芯片**切换。开关持久化,重启不丢,且不会产生任何聊天消息。
 
 本地安装:克隆仓库后执行 `dsh plugin --profile web add <克隆路径>`,后续两步相同。
 
 依赖:标准 web profile(`@deepseek-ai/dsh-base` + `@deepseek-ai/dsh-web-app`)
-自带的 approval / settings / commands / webServer 服务。
+自带的 approval / settings / webServer 服务。
 
 ## 使用方法
 
-- `/auto` — 切换 Auto Mode(全局,所有会话生效)。开关存在 `auto-mode` 设置命名空间,持久化。
+- **点击输入框上方的芯片**切换 Auto Mode(全局,所有会话生效)。开关存在
+  `auto-mode` 设置命名空间,持久化;不产生任何聊天消息,芯片本身就是唯一反馈。
 - 状态芯片每 3 秒轮询 `/api/auto-mode/state`(窗口聚焦时立即刷新),切换后几秒内更新。
 - 默认配置:`dsh-auto-mode.enabled`(默认 `false`)。
 

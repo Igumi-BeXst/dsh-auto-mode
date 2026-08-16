@@ -28,20 +28,23 @@ Then:
    without it, auto-grant does not work.
 2. Restart `dsh web` and hard-refresh the page (Ctrl+Shift+R). The chip
    appears above the composer, aligned with the input card.
-3. Type `/auto` to toggle. The switch is durable and survives restarts.
+3. **Click the chip** to toggle. The switch is durable and survives restarts,
+   and no chat message is produced.
 
 Manual/local install: clone the repo, then
 `dsh plugin --profile web add <path-to-clone>` — same two follow-up steps.
 
 Requirements: a `web` profile with the standard bundles (`@deepseek-ai/dsh-base`,
-`@deepseek-ai/dsh-web-app`), which provide the approval, settings, commands,
-and webServer services the plugin uses.
+`@deepseek-ai/dsh-web-app`), which provide the approval, settings, and
+webServer services the plugin uses.
 
 ## Usage
 
-- `/auto` — toggle Auto Mode for all sessions. The switch is durable
-  (`auto-mode` settings namespace) and survives restarts.
-- The status chip above the composer polls `/api/auto-mode/state` every 3
+- **Click the chip** above the composer to toggle Auto Mode for all
+  sessions. The switch is durable (`auto-mode` settings namespace) and
+  survives restarts. No chat message is produced — the chip itself is the
+  only feedback.
+- The chip polls `/api/auto-mode/state` every 3
   seconds (plus window-focus refresh), so it reflects the mode within
   seconds of any toggle.
 - Config default: `dsh-auto-mode.enabled` (default `false`).

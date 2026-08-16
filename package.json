@@ -1,7 +1,7 @@
 {
   "name": "dsh-auto-mode",
-  "version": "0.2.1",
-  "description": "Auto Mode for DeepSeek Harness: auto-accept approval prompts (Claude Code auto-accept equivalent); toggle with the /auto command, with a persistent composer status chip",
+  "version": "0.2.2",
+  "description": "Auto Mode for DeepSeek Harness: auto-accept approval prompts (Claude Code auto-accept equivalent); the composer status chip is both indicator and toggle — no chat messages",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
