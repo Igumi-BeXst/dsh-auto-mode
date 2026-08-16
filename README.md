@@ -1,4 +1,7 @@
 # dsh-auto-mode
+<img width="360" height="100" alt="8d7851c5-4a64-4903-9c1b-68d3fadffb3e" src="https://github.com/user-attachments/assets/f6d0d639-f10f-4d42-8995-fa4643e69f63" />
+<img width="360" height="100" alt="50959136-c076-4447-a4d0-05c255efd26d" src="https://github.com/user-attachments/assets/69139524-1737-4996-a1ee-1cf24ff18c54" />
+
 
 **Auto Mode** for DeepSeek Harness: when enabled, every
 approval prompt is auto-accepted — operations that require approval
