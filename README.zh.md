@@ -53,8 +53,8 @@ Auto Mode 会放行**所有**请求,包括破坏性操作。运行时上下文�
   因此热重载本插件后必须重启 web 服务,自动放行才能恢复。
 - **模式句子会被 router 系插件抑制**:`auto-mode:state` 运行时上下文条目会被
   在 `system-prompt/assemble` 上清空 `contexts` 的插件抹掉(dsh-mode-boost 和
-  router-standard 预设都是这么设计的)。模型仍能从注入的 "Auto Mode is now
-  ON/OFF (changed by the user)." 会话消息感知每次切换——这条消息任何插件都清不掉。
+  router-standard 预设都是这么设计的)。输入框上方的状态芯片不受影响、始终显示
+  当前模式;如果希望模型也能看到模式句子,请避免与这些插件同时挂载。
 
 ## 许可证
 

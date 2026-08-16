@@ -74,9 +74,9 @@ operations. Toggle it off with `/auto` at any time.
 - **Narration sentence suppressed by router-family plugins**: the
   `auto-mode:state` runtime-context entry is cleared by plugins that wipe
   `contexts` on `system-prompt/assemble` (dsh-mode-boost and the
-  router-standard preset do this by design). The model still learns every
-  switch from the injected "Auto Mode is now ON/OFF (changed by the user)."
-  transcript message, which no plugin clears.
+  router-standard preset do this by design). The composer status chip always
+  shows the mode regardless; if you want the model to see it too, avoid
+  mounting those plugins alongside this one.
 
 ## License
 
