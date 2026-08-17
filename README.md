@@ -61,9 +61,11 @@ claim requests first.
 **Safety invariant**: sandbox escalations to `danger-full-access` are never
 auto-granted. Even while Auto Mode is on, those requests fall through to the
 interactive answerer, so the browser always asks you before any full-access
-upgrade. The model-facing prompt states the same rule: it must not request
-such an escalation on its own — it states the need and waits for your
-approval.
+upgrade. The model-facing prompt states the same rule as a positive
+instruction: when an operation genuinely needs that permission, request the
+escalation normally (with justification) — the approval prompt appears and
+you decide; the model must not abandon necessary operations because Auto
+Mode is on.
 
 ## Safety
 
