@@ -58,27 +58,29 @@ The profile keeps this bundle **first** in `dsh.profile.bundles` so the row
 precedes the UI answerer row; without that ordering the browser prompt would
 claim requests first.
 
-**Safety invariant**: sandbox escalations to `danger-full-access` are
-auto-granted EXCEPT when the underlying command is a destructive delete. The
-listener resolves the real command text of the escalating tool call (through
-the request's callId against the session log) and matches it against the
-Windows accident shapes — recursive deletes (`Remove-Item -Recurse`,
+**Safety invariant**: `danger-full-access` escalations of SHELL commands
+(pwsh/bash) are auto-granted EXCEPT when the command is a destructive delete.
+The listener resolves the real command text of the escalating tool call
+(through the request's callId against the session log) and matches it against
+the Windows accident shapes — recursive deletes (`Remove-Item -Recurse`,
 `rm -rf`, `rd /s`), wildcard deletes, drive-root deletes, trailing-backslash
 quote path bugs (the classic "delete a link and wipe its target/root" shape),
 and junction/symlink-targeted deletes. Matched commands fall through to the
 interactive answerer, so the browser always asks you before any such
-full-access delete; every other danger-full-access escalation is
-auto-approved. The model-facing prompt states the same rule: destructive
-deletes show an approval prompt, anything else that needs full access is
-auto-approved.
+full-access delete. Filesystem tools (edit/write/read/fs-*) take structured
+path arguments, not command strings, so their escalations are always
+auto-approved under Auto Mode. The model-facing prompt states the same rule:
+destructive shell deletes show an approval prompt, anything else that needs
+full access is auto-approved.
 
 ## Safety
 
 Auto Mode grants every request, including destructive ones. The runtime
 context warns the model to use extra care with irreversible or costly
-operations, and destructive deletes — recursive, wildcard, drive-root, or
-junction/symlink-targeted — always require your explicit approval even in
-Auto Mode. Click the chip to turn the mode off at any time.
+operations, and destructive shell deletes — recursive, wildcard, drive-root,
+or junction/symlink-targeted — always require your explicit approval even in
+Auto Mode. Filesystem tools never prompt. Click the chip to turn the mode off
+at any time.
 
 ## Known limitations
 
