@@ -48,15 +48,23 @@ webServer services the plugin uses.
 
 ## How it works
 
-The plugin registers the first `approval/request` waterfall listener on the
-host plane. When Auto Mode is on it claims every request with
-`allowed-once` — before the web UI answerer (registered later in the tree)
+The plugin registers an `approval/request` waterfall listener. When Auto Mode
+is on it claims every request with `allowed-once` — before the web UI answerer
 can forward it to the browser. When off it delegates via `next()` and the
 normal approval flow applies.
 
-The profile keeps this bundle **first** in `dsh.profile.bundles` so the row
-precedes the UI answerer row; without that ordering the browser prompt would
-claim requests first.
+**The listener is registered on the ROOT context, with `global` and `prepend`.**
+dsh-session >= 0.1.5 dispatches this event through `scopeTarget(req.agent,
+req.agent)`, and Cordis's dispatch filter admits a listener only when its
+context carries no scope or is scoped to that agent (or an ancestor). A
+listener registered on the plugin's own bundle-scoped context is filtered out
+of that dispatch and never runs — Auto Mode would silently do nothing. The root
+context is scope-less, which the filter admits unconditionally; `prepend`
+sorts this listener ahead of the browser answerer, whose pending answer would
+otherwise stop the waterfall first.
+
+The profile keeps this bundle **first** in `dsh.profile.bundles` so its row
+precedes the UI answerer row.
 
 **Safety invariant**: `danger-full-access` escalations of SHELL commands
 (pwsh/bash) are auto-granted EXCEPT when the command is a destructive delete.

@@ -35,12 +35,18 @@ dsh plugin --profile web add github:Igumi-BeXst/dsh-auto-mode
 
 ## 工作原理
 
-插件在宿主平面注册**第一个** `approval/request` 瀑布监听器。Auto Mode 开启时,
-每个请求在 web UI 应答器(树中注册更晚)转发到浏览器之前,直接被认领并返回
-`allowed-once`;关闭时通过 `next()` 委托,走正常审批流程。
+插件注册一个 `approval/request` 瀑布监听器。Auto Mode 开启时,每个请求在 web UI
+应答器转发到浏览器之前,直接被认领并返回 `allowed-once`;关闭时通过 `next()`
+委托,走正常审批流程。
 
-profile 把本 bundle 放在 `dsh.profile.bundles` **第一位**,保证监听器先于 UI
-应答器注册——没有这个顺序,浏览器弹窗会先认领请求。
+**监听器注册在 ROOT context 上,并带 `global` 与 `prepend`。** dsh-session >=
+0.1.5 通过 `scopeTarget(req.agent, req.agent)` 派发该事件,而 Cordis 的派发过滤器
+只接受「无 scope」或「scope 属于该 agent(或其祖先)」的监听器。注册在插件自身
+bundle scope 上的监听器会被直接过滤掉、永不执行——Auto Mode 会静默失效。root
+context 无 scope,过滤器无条件放行;`prepend` 让本监听器排在浏览器应答器之前,
+否则应答器的等待应答会先终止瀑布链。
+
+profile 把本 bundle 放在 `dsh.profile.bundles` **第一位**,保证其行先于 UI 应答器行。
 
 **安全不变式**:shell 命令(pwsh/bash)升级到 `danger-full-access` 时,**只在命令
 不是危险删除时**自动放行。插件通过请求的 callId 在会话日志中反查出该工具调用的
